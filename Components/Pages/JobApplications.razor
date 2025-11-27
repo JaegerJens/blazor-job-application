@@ -1,0 +1,55 @@
+@page "/jobs"
+@using blazor_job_applications.Model
+
+<PageTitle>Job Applications</PageTitle>
+
+<h1>Job Applications</h1>
+
+@if (jobApplications == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Sector</th>
+                <th>First Contact</th>
+                <th>Status</th>
+                <th>Website</th>
+                <th>Job Ad</th>
+                <th>Office Location</th>
+                <th>Target Salary</th>
+                <th>Skills</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (JobApplication job in jobApplications)
+            {
+                <tr>
+                    <td>@job.Company.Name</td>
+                    <td>@job.Company.Sector</td>
+                    <td>@job.FirstContact</td>
+                    <td>@job.Status</td>
+                    <td><a href="@job.Company.Website">@job.Company.Website</a></td>
+                    <td><a href="@job.JobAd">@job.JobAd</a></td>
+                    <td>@job.Company.OfficeLocation</td>
+                    <td>@job.Salary</td>
+                    <td>@string.Join(", ", @job.Skills.ToArray())</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private JobApplication[]? jobApplications;
+
+    protected override async Task OnInitializedAsync()
+    {
+        JobStore? store = new JobStore { Filename = "jobs.json" };
+        jobApplications = await store.Load();
+    }
+}
