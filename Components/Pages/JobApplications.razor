@@ -1,5 +1,6 @@
 @page "/jobs"
 @using blazor_job_applications.Model
+@using blazor_job_applications.Components.Ui
 
 <PageTitle>Job Applications</PageTitle>
 
@@ -32,7 +33,9 @@ else
                     <td>@job.Company.Name</td>
                     <td>@job.Company.Sector</td>
                     <td>@job.FirstContact</td>
-                    <td>@job.Status</td>
+                    <td>
+                        <Status value="@job.Status" />
+                    </td>
                     <td><a href="@job.Company.Website">@job.Company.Website</a></td>
                     <td><a href="@job.JobAd">@job.JobAd</a></td>
                     <td>@job.Company.OfficeLocation</td>

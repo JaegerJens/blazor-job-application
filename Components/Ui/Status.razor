@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using blazor_job_applications.Model
+
+<span style="color: @Color()">@DisplayValue()</span>
+
+@code {
+    [Parameter]
+    public ApplicationStatus Value { get; set; }
+
+    public string Color()
+    {
+        if (Value == ApplicationStatus.ApplicationRejected)
+        {
+            return "red";
+        }
+        else
+        {
+            return "green";
+        }
+    }
+
+    public string DisplayValue()
+    {
+        switch (Value)
+        {
+            case ApplicationStatus.ApplicationSend: return "Send";
+            case ApplicationStatus.ApplicationAccepted: return "Accepted";
+            case ApplicationStatus.JobInterview: return "Interview";
+            case ApplicationStatus.Success: return "Success";
+            case ApplicationStatus.ApplicationRejected: return "Rejected";
+            default: return Value.ToString();
+        }
+    }
+}
